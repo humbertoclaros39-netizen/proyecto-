@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Jhoel!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4a90e2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-page {
+            text-align: center;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="80" cy="30" r="1" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/></circle><circle cx="60" cy="70" r="1.5" fill="white" opacity="0.4"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/></circle></svg>') repeat;
+        }
+
+        .volleyball-bg {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .volleyball-bg:nth-child(2) {
+            top: 60%;
+            left: 10%;
+            animation-delay: -2s;
+        }
+
+        .volleyball-bg:nth-child(3) {
+            top: 30%;
+            left: 50%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+            color: #ffeb3b;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: #e3f2fd;
+        }
+
+        .main-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .content-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .big-title {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffeb3b, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px #ffeb3b); }
+            to { filter: drop-shadow(0 0 20px #ff6b35); }
+        }
+
+        .message {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .two-column {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .video-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #1976d2, #42a5f5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '▶';
+            font-size: 4rem;
+            position: absolute;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .multiple-videos {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .twelve-videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .twelve-videos .video-placeholder {
+            height: 150px;
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 107, 53, 0.2));
+            border: 3px solid #ffeb3b;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-message::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 235, 59, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .next-button {
+            background: linear-gradient(45deg, #2196f3, #03a9f4);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .next-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .next-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Fireworks Animation */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            animation: firework-explode 1s ease-out forwards;
+        }
+
+        @keyframes firework-explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+
+        .star {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            font-size: 20px;
+            animation: star-fall 2s ease-in-out forwards;
+        }
+
+        @keyframes star-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .big-title { font-size: 3rem; }
+            .message { font-size: 1.2rem; padding: 20px; }
+            .two-column { flex-direction: column; }
+            .twelve-videos { grid-template-columns: 1fr; }
+            .video-element, .video-placeholder { height: 200px; }
+            .twelve-videos .video-placeholder, .twelve-videos .video-element { height: 120px; }
+            .admin-toggle { font-size: 10px; padding: 8px 12px; }
+            .admin-panel { padding: 10px; }
+            .video-slot { padding: 15px; }
+        }
+
+        /* Efectos especiales para videos */
+        .video-element:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-container:hover .video-placeholder {
+            background: linear-gradient(45deg, #2196f3, #ffeb3b);
+        }
+
+        /* Indicador de carga para videos */
+        .video-loading {
+            position: relative;
+        }
+
+        .video-loading::after {
+            content: '🔄';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Efecto especial para página final */
+        .final-message::after {
+            content: '🎉🎂🎁';
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Página de Bienvenida -->
+    <div class="page active welcome-page" id="page-0">
+        <div class="volleyball-bg"></div>
+        <div class="volleyball-bg"></div>
+        <div class="volleyball-bg"></div>
+        
+        <h1 class="title">¡Es un día especial!</h1>
+        <p class="subtitle">Para alguien muy especial...</p>
+        <button class="main-button" onclick="nextPage()">¡Descúbrelo aquí!</button>
+    </div>
+
+    <!-- Página 1: FELIZ CUMPLE HERMANITO -->
+    <div class="page content-page" id="page-1">
+        <h1 class="big-title">¡FELIZ CUMPLE HERMANITO!</h1>
+        <div class="video-container">
+           <video src="vi1 .mp4"></video>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 2: Primer mensaje -->
+    <div class="page content-page" id="page-2">
+        <div class="message">
+            Te vi crecer y esas peleas de hermanos se convirtieron en charlas profundas y en el amor más puro e incondicional que jamás haya podido tener.
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 3: Video + Segundo mensaje -->
+    <div class="page content-page" id="page-3">
+        <div class="video-container">
+         <video src="vi2 .mp4"></video>
+        </div>
+        <div class="message">
+            Quiero que sepas que aunque tal vez no lo demuestre todo el tiempo o te lo diga muy seguido, te quiero mucho. Quiero que sepas que mientras yo esté aquí siempre tendrás a alguien para ti, para molestar, para contar si tuviste un día bueno o malo, para de la nada llegar y contar los chistes más malos. Para lo que quieras yo estoy y estaré aquí para ti. Te quiero mucho.
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 4: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-4">
+        <div class="two-column">
+            <div class="video-container">
+               <video src="vi3.mp4"></video>
+            </div>
+            <div class="message">
+                Para mi hermano menor: poco a poco vas creciendo y veo el hombre maravilloso en el que te estás convirtiendo. Siempre serás mi pequeño, como en la escuela te compraba todos los dulces que querías. Nunca olvides que tienes una hermana mayor que te ama mucho y te cuidará siempre, siempre estaré para ti para cualquier cosa a la hora que quieras. Nunca dudes que cuentas conmigo, quiero que seas muy feliz y salgas adelante, cumple todas tus metas que tienes, sé un hombre de bien.
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 5: Video derecho + mensaje izquierdo -->
+    <div class="page content-page" id="page-5">
+        <div class="two-column">
+            <div class="message">
+                Tal vez no soy la mejor hermana, pero quiero decirte que cada día me esfuerzo para ser tu orgullo y en este día tan especial para ti, quiero decirte que te quiero mucho y que eres el mejor hermano varón que tengo.
+            </div>
+            <div class="video-container">
+                <video src="vi4.mp4"></video>
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 6: Video centro + mensaje abajo -->
+    <div class="page content-page" id="page-6">
+        <div class="video-container">
+           <video src="vi5.mp4"></video>
+        </div>
+        <div class="message">
+            Un hermano, el compañero que te jode, te conoce, te hace bromas, pero que sabes que uno daría la vida por el otro. Yo crecí con él y no conozco la vida sin él, y espero nunca conocerla. Desde que estabas en la cuna hasta que caminabas en nuestra escuela, hay algo que nos une además de historias, recuerdos y juegos: esa hermandad casi telepática. Saber que vamos juntos aunque estemos separados, compartimos la vida aunque cada quien tenga lo suyo.
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 7: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-7">
+        <div class="two-column">
+            <div class="video-container">
+             <video src="vi6.mp4"></video>
+            </div>
+            <div class="message">
+                A veces me haces enojar, a veces te hago enojar yo... A veces te hago reír y tú a mí... Quiero que sepas que aunque a veces peleemos y tengamos diferencias, eres un gran hermano.
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 8: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-8">
+        <div class="two-column">
+            <div class="video-container">
+               <video src="vi7.mp4"></video>
+            </div>
+            <div class="message">
+                Hoy cumples un año más de vida y aquí estoy, tal vez más feliz que tú porque este día significa mucho para mí. Te felicito por haber superado tantas adversidades. Reconozco tu fortaleza y la persona tan maravillosa en la que te has convertido hasta el día de hoy. Eres fuerte y capaz de todo, y sé que poco a poco alcanzarás grandes logros. Gracias por ser mi rayito de sol, mi mejor amigo, mi alegría y mi compañero de aventuras. Estoy segura que desde el momento en que naciste el destino sabía que serías mi hermano.
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 9: Dos videos -->
+    <div class="page content-page" id="page-9">
+        <div class="multiple-videos">
+            <div class="video-container">
+            <video src="vi8.mp4"></video>
+            </div>
+            <div class="video-container">
+              <video src="vi9.mp4"></video>
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 10: Video derecho + mensaje izquierdo -->
+    <div class="page content-page" id="page-10">
+        <div class="two-column">
+            <div class="message">
+                Prometo aplaudir tan fuerte tus logros, que nunca se darán cuenta de quién no lo hace.
+            </div>
+            <div class="video-container">
+                <video src="vi10.mp4"></video>
+                <video class="video-element" id="video-10" controls preload="metadata">
+                    Tu navegador no soporta el elemento video.
+                </video>
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 11: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-11">
+        <div class="two-column">
+            <div class="video-container">
+           <video src="vi11.mp4"></video>
+            </div>
+            <div class="message">
+                Hermano, hoy cumples un año más de vida, feliz vuelta al sol. No te puedo dar un abrazo, pero te mando uno a la distancia.
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 12: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-12">
+        <div class="two-column">
+            <div class="video-container">
+            <video src="vi12.mp4"></video>
+            </div>
+            <div class="message">
+                Pensé que no lo estaba haciendo bien hasta que mi hermano me dijo: "quiero ser como tú y estar en el cuadro de honor y llevar la bandera del cole".
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 13: 12 videos -->
+    <div class="page content-page" id="page-13">
+    <meta charset="UTF-8">
+            <div class="video-container"><video src="vi14.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi15.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi16.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi17.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi18.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi19.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi20.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi21.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi22.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi23.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi24.mp4"></video>
+</div>
+            <div class="video-container"><video src="vi28.mp4"></video>
+</div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página 14: Video izquierdo + mensaje derecho -->
+    <div class="page content-page" id="page-14">
+        <div class="two-column">
+            <div class="video-container">
+             <video src="vi29.mp4"></video>
+            <div class="message">
+               <p>Hoy cumples <strong>17 años, ¡wow, 17 años ya!</strong> No puedo creer lo rápido que pasa el tiempo. Me encantaría estar ahí contigo, abrazarte fuerte y celebrar cada momento de tu día, pero la universidad me tiene ocupada 😞. Aunque no esté físicamente, quiero que sepas que <strong>mi corazón y mis pensamientos están contigo todo el día</strong>.</p>
+            
+            <p>Te deseo <strong>todo lo mejor del mundo, hermanito</strong>: que cada día que pase esté lleno de alegría, que siempre tengas motivos para sonreír, y que nunca te falte la fuerza para perseguir tus sueños. Que la vida te regale <strong>momentos increíbles, aprendizajes valiosos y personas que te quieran de verdad</strong>, porque te lo mereces con todo mi corazón.</p>
+            
+            <p>Quiero que sepas que <strong>eres más que un hermano, eres un amigo, un compañero de vida y alguien que siempre ilumina mis días</strong> con su risa, ocurrencias y esa energía única que tienes. Siempre he admirado tu forma de ser, tu carácter, tu corazón y tu manera de enfrentar las cosas. Nunca cambies, Jhoel, porque eres maravilloso tal como eres.</p>
+            
+            <p>Espero que hoy recibas <strong>mucho amor, regalos, sorpresas y momentos felices</strong> que te queden grabados para siempre. Que rías hasta que te duela la barriga, que disfrutes cada segundo y que sientas lo especial que eres para todos los que te queremos, y especialmente para mí.</p>
+            
+            <p>Aunque no esté allí físicamente, <strong>estaré contigo en espíritu</strong> en cada abrazo imaginario, en cada sonrisa que des y en cada deseo que pidas hoy. Y prometo que <strong>cuando nos veamos, celebraremos a lo grande</strong>, con risas, recuerdos y mucho amor.</p>
+            
+            <p>Nunca olvides que <strong>te quiero muchísimo, Jhoel, y que siempre estaré para ti</strong>, apoyándote en todo, celebrando tus triunfos y acompañándote incluso en los momentos difíciles. ¡Disfruta de tu día al máximo, porque te lo mereces más que nadie! 💖🎂🎁</p>
+            
+            <p><strong>Con todo mi amor y un abrazo enorme desde aquí,<br>Tu hermana Pao 💫</strong></p>
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button> 
+        
+    <!-- Página 15: Video derecho + mensaje izquierdo -->
+    <div class="page content-page" id="page-15">
+        <div class="two-column">
+            <div class="message">
+                Si pudiera escoger entre sanarme a mí o sanarte a ti, te escogería mil veces a ti porque tú vales más para mí que yo misma y prefiero que tú seas feliz.
+            <div class="video-container">
+             <video src="vi27.mp4"></video>
+            </div>
+        </div>
+        <button class="next-button" onclick="nextPage()">Siguiente</button>
+    </div>
+
+    <!-- Página Final: Video + mensaje final -->
+    <div class="page content-page" id="page-16">
+        <div class="video-container">
+         <video src="vi28.mp4"></video>
+ </div>
+        <div class="final-message">
+            <p>Hoy cumples <strong>17 años, ¡wow, 17 años ya!</strong> No puedo creer lo rápido que pasa el tiempo. Me encantaría estar ahí contigo, abrazarte fuerte y celebrar cada momento de tu día, pero la universidad me tiene ocupada 😞. Aunque no esté físicamente, quiero que sepas que <strong>mi corazón y mis pensamientos están contigo todo el día</strong>.</p>
+            
+            <p>Te deseo <strong>todo lo mejor del mundo, hermanito</strong>: que cada día que pase esté lleno de alegría, que siempre tengas motivos para sonreír, y que nunca te falte la fuerza para perseguir tus sueños. Que la vida te regale <strong>momentos increíbles, aprendizajes valiosos y personas que te quieran de verdad</strong>, porque te lo mereces con todo mi corazón.</p>
+            
+            <p>Quiero que sepas que <strong>eres más que un hermano, eres un amigo, un compañero de vida y alguien que siempre ilumina mis días</strong> con su risa, ocurrencias y esa energía única que tienes. Siempre he admirado tu forma de ser, tu carácter, tu corazón y tu manera de enfrentar las cosas. Nunca cambies, Jhoel, porque eres maravilloso tal como eres.</p>
+            
+            <p>Espero que hoy recibas <strong>mucho amor, regalos, sorpresas y momentos felices</strong> que te queden grabados para siempre. Que rías hasta que te duela la barriga, que disfrutes cada segundo y que sientas lo especial que eres para todos los que te queremos, y especialmente para mí.</p>
+            
+            <p>Aunque no esté allí físicamente, <strong>estaré contigo en espíritu</strong> en cada abrazo imaginario, en cada sonrisa que des y en cada deseo que pidas hoy. Y prometo que <strong>cuando nos veamos, celebraremos a lo grande</strong>, con risas, recuerdos y mucho amor.</p>
+            
+            <p>Nunca olvides que <strong>te quiero muchísimo, Jhoel, y que siempre estaré para ti</strong>, apoyándote en todo, celebrando tus triunfos y acompañándote incluso en los momentos difíciles. ¡Disfruta de tu día al máximo, porque te lo mereces más que nadie! 💖🎂🎁</p>
+            
+            <p><strong>Con todo mi amor y un abrazo enorme desde aquí,<br>Tu hermana Pao 💫</strong></p>
+        </div>
+    </div>
+
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 17;
+
+        function nextPage() {
+            // Crear fuegos artificiales
+            createFireworks();
+            createStars();
+            
+            // Cambiar página después de un pequeño delay
+            setTimeout(() => {
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                currentPage++;
+                if (currentPage < totalPages) {
+                    document.getElementById(`page-${currentPage}`).classList.add('active');
+                }
+            }, 500);
+        }
+
+        function createFireworks() {
+            const colors = ['#ffeb3b', '#ff6b35', '#2196f3', '#4caf50', '#e91e63', '#9c27b0'];
+            
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    
+                    for (let j = 0; j < 20; j++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'firework-particle';
+                        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        const angle = (j / 20) * 2 * Math.PI;
+                        const distance = 50 + Math.random() * 100;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        
+                        particle.style.setProperty('--x', x + 'px');
+                        particle.style.setProperty('--y', y + 'px');
+                        
+                        firework.appendChild(particle);
+                    }
+                    
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(firework);
+                    }, 1000);
+                }, i * 200);
+            }
+        }
+
+        function createStars() {
+            const starEmojis = ['⭐', '🌟', '✨', '💫', '🎊', '🎉'];
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.textContent = starEmojis[Math.floor(Math.random() * starEmojis.length)];
+                    star.style.left = Math.random() * window.innerWidth + 'px';
+                    star.style.color = ['#ffeb3b', '#ff6b35', '#2196f3', '#4caf50'][Math.floor(Math.random() * 4)];
+                    
+                    document.body.appendChild(star);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(star)) {
+                            document.body.removeChild(star);
+                        }
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // Animación de fondo
+        function createFloatingElements() {
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.style.position = 'fixed';
+                element.style.left = Math.random() * window.innerWidth + 'px';
+                element.style.top = window.innerHeight + 'px';
+                element.style.color = 'rgba(255, 255, 255, 0.1)';
+                element.style.fontSize = '20px';
+                element.style.pointerEvents = 'none';
+                element.style.zIndex = '1';
+                element.textContent = ['🏐', '⭐', '✨'][Math.floor(Math.random() * 3)];
+                element.style.animation = 'float-up 8s linear forwards';
+                
+                document.body.appendChild(element);
+                
+                setTimeout(() => {
+                    if (document.body.contains(element)) {
+                        document.body.removeChild(element);
+                    }
+                }, 8000);
+            }, 3000);
+        }
+
+        // Agregar animación CSS para elementos flotantes
+        const style = document.createElement('style');
+        style.textContent += `
+            @keyframes float-up {
+                from {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.5;
+                }
+                to {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Iniciar animaciones de fondo
+        createFloatingElements();
+
+        // Efecto de partículas en hover para botones
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.classList.contains('main-button') || e.target.classList.contains('next-button')) {
+                for (let i = 0; i < 5; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = '4px';
+                    particle.style.height = '4px';
+                    particle.style.background = '#ffeb3b';
+                    particle.style.borderRadius = '50%';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.left = (e.clientX + Math.random() * 20 - 10) + 'px';
+                    particle.style.top = (e.clientY + Math.random() * 20 - 10) + 'px';
+                    particle.style.animation = 'particle-fade 1s ease-out forwards';
+                    particle.style.zIndex = '10000';
+                    
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(particle)) {
+                            document.body.removeChild(particle);
+                        }
+                    }, 1000);
+                }
+            }
+        });
+
+        // Agregar animación para partículas
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particle-fade {
+                0% {
+                    transform: scale(0) translateY(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1) translateY(-30px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+
+        // Sonido de celebración (usando Web Audio API)
+        function playClickSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Agregar sonido a los botones
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('main-button') || e.target.classList.contains('next-button')) {
+                try {
+                    playClickSound();
+                } catch (error) {
+                    // Silenciar errores de audio si no es compatible
+                }
+            }
+        });
+
+        // Efecto de nieve de volleyball
+        function createVolleyballSnow() {
+            setInterval(() => {
+                const volleyball = document.createElement('div');
+                volleyball.innerHTML = '🏐';
+                volleyball.style.position = 'fixed';
+                volleyball.style.left = Math.random() * window.innerWidth + 'px';
+                volleyball.style.top = '-50px';
+                volleyball.style.fontSize = Math.random() * 20 + 10 + 'px';
+                volleyball.style.pointerEvents = 'none';
+                volleyball.style.zIndex = '1';
+                volleyball.style.opacity = '0.3';
+                volleyball.style.animation = `fall-down ${Math.random() * 3 + 5}s linear forwards`;
+                
+                document.body.appendChild(volleyball);
+                
+                setTimeout(() => {
+                    if (document.body.contains(volleyball)) {
+                        document.body.removeChild(volleyball);
+                    }
+                }, 8000);
+            }, 5000);
+        }
+
+        // Agregar animación de caída
+        const fallStyle = document.createElement('style');
+        fallStyle.textContent = `
+            @keyframes fall-down {
+                from {
+                    transform: translateY(-50px) rotate(0deg);
+                    opacity: 0.3;
+                }
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(fallStyle);
+
+        // Iniciar efecto de nieve de volleyball
+        createVolleyballSnow();
+
+        // Efecto de entrada para cada página
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        });
+
+        // Observar todas las páginas
+        document.querySelectorAll('.page').forEach(page => {
+            observer.observe(page);
+        });
+
+        // Agregar animación de entrada
+        const enterStyle = document.createElement('style');
+        enterStyle.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(enterStyle);
+
+        // Easter egg: Konami Code para fuegos artificiales extra
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                // Fuegos artificiales especiales de Nishinoya
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createFireworks();
+                        createStars();
+                    }, i * 200);
+                }
+                konamiCode = [];
+            }
+        });
+    </script>
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
